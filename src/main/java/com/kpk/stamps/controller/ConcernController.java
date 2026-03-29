@@ -4,6 +4,7 @@ import com.kpk.stamps.dto.ConcernResponseDTO;
 import com.kpk.stamps.dto.CreateConcernRequestDTO;
 import com.kpk.stamps.dto.UpdateConcernRequestDTO;
 import com.kpk.stamps.entity.Concern;
+import com.kpk.stamps.exceptions.ConcernNotFoundexception;
 import com.kpk.stamps.service.ConcernService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,13 +35,9 @@ public class ConcernController {
 
     @GetMapping("/v1/concerns/{id}")
     public ResponseEntity<Concern> getConcernById(@PathVariable Long id){
-        Optional<Concern>
-                concern= concernService.getConcernById(id);
+        Concern concern= concernService.getConcernById(id).orElseThrow(()->new ConcernNotFoundexception("Concern Not Found"));
 
-        if(concern.isPresent()){
-            return ResponseEntity.ok(concern.get());
-        }
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(concern);
 
     }
 

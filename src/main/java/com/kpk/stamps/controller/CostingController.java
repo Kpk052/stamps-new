@@ -3,6 +3,7 @@ package com.kpk.stamps.controller;
 import com.kpk.stamps.dto.CreateCostingDTO;
 import com.kpk.stamps.entity.Concern;
 import com.kpk.stamps.entity.Costing;
+import com.kpk.stamps.exceptions.CostingNotFoundException;
 import com.kpk.stamps.service.CostingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,12 +37,10 @@ public class CostingController {
 
     @GetMapping("/v1/costing/{concernId}")
     public ResponseEntity<Costing> getCosting(@PathVariable Long concernId){
-        Optional<Costing> costing=costingService.getCostingById(concernId);
+        Costing costing=costingService.getCostingById(concernId).orElseThrow(()->new CostingNotFoundException("Concern not found"));
 
-        if(costing.isPresent()){
-            return ResponseEntity.ok(costing.get());
-        }
-        return ResponseEntity.notFound().build();
+
+            return ResponseEntity.ok(costing);
     }
 
 }
