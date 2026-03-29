@@ -6,6 +6,7 @@ import com.kpk.stamps.concernhistory.repository.ConcernHistoryRepository;
 import com.kpk.stamps.entity.Concern;
 import com.kpk.stamps.repository.ConcernRepository;
 import com.kpk.stamps.service.ConcernService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,10 +14,12 @@ import java.util.List;
 @Service
 public class ConcernHistoryService {
 
-    ConcernHistory concernHistory;
 
+
+    @Autowired
     ConcernHistoryRepository concernHistoryRepository;
 
+    @Autowired
    ConcernRepository concernRepository;
 
     public void recordHistory(Long concernId, String action, String oldValue, String newValue, String changedBy){

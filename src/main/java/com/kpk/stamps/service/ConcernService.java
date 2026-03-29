@@ -7,7 +7,7 @@ import com.kpk.stamps.dto.UpdateConcernRequestDTO;
 import com.kpk.stamps.entity.Concern;
 import com.kpk.stamps.enums.ConcernStatus;
 import com.kpk.stamps.repository.ConcernRepository;
-import jakarta.validation.constraints.Null;
+//import jakarta.validation.constraints.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +19,7 @@ public class ConcernService {
    @Autowired
     public ConcernRepository concernRepository;
 
+   @Autowired
    public ConcernHistoryService concernHistoryService;
 
     public Concern saveConcern(CreateConcernRequestDTO createConcernRequestDTO) {
@@ -36,11 +37,13 @@ public class ConcernService {
         concern.setStatus(ConcernStatus.OPEN);
 
 
+        concernRepository.save(concern);
+
         concernHistoryService.recordHistory(concern.getId(),"Concern created", "No Status",ConcernStatus.OPEN.name(),createConcernRequestDTO.getAssignedTo());
 
 
 
-         return concernRepository.save(concern);
+         return concern;
     }
 
     private String generateConcernNumber() {

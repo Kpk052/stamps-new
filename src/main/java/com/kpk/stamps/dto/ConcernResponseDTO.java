@@ -1,11 +1,11 @@
 package com.kpk.stamps.dto;
 
 import com.kpk.stamps.enums.ConcernStatus;
-import lombok.Data;
+//import lombok.Data;
 
 import java.time.LocalDate;
 
-@Data
+//@Data
 public class ConcernResponseDTO {
 
     private String title;

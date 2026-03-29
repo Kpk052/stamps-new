@@ -3,13 +3,13 @@ package com.kpk.stamps.entity;
 
 import com.kpk.stamps.enums.ConcernStatus;
 import jakarta.persistence.*;
-import lombok.Data;
+//import lombok.Data;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name="concerns")
-@Data
+//@Data
 public class Concern {
 
     @Id
